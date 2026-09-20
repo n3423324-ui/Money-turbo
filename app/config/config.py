@@ -554,9 +554,12 @@ app = _SynchronizedConfig(_cfg.get("app", {}))
 # Railway environment variable support
 # Allows Pexels API key to be provided securely through Railway Variables.
 pexels_env_key = os.getenv("PEXELS_API_KEY", "").strip()
+
 if pexels_env_key:
     app["pexels_api_keys"] = [pexels_env_key]
-
+    logger.info("PEXELS_API_KEY loaded from environment")
+else:
+    logger.warning("PEXELS_API_KEY is NOT set in environment")
 whisper = _cfg.get("whisper", {})
 proxy = _cfg.get("proxy", {})
 whisper = _cfg.get("whisper", {})
