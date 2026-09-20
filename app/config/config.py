@@ -548,6 +548,17 @@ def save_config():
 
 _cfg = load_config()
 app = _SynchronizedConfig(_cfg.get("app", {}))
+_cfg = load_config()
+app = _SynchronizedConfig(_cfg.get("app", {}))
+
+# Railway environment variable support
+# Allows Pexels API key to be provided securely through Railway Variables.
+pexels_env_key = os.getenv("PEXELS_API_KEY", "").strip()
+if pexels_env_key:
+    app["pexels_api_keys"] = [pexels_env_key]
+
+whisper = _cfg.get("whisper", {})
+proxy = _cfg.get("proxy", {})
 whisper = _cfg.get("whisper", {})
 proxy = _cfg.get("proxy", {})
 azure = _SynchronizedConfig(_cfg.get("azure", {}))
