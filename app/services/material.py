@@ -6,15 +6,16 @@ import random
 import threading
 import time
 import uuid
-logger.info(
-    f"PEXELS_API_KEY environment present: {bool(os.getenv('PEXELS_API_KEY', '').strip())}"
-)
 from pathlib import Path
 from typing import Any, Callable, List
 from urllib.parse import quote_plus, urlencode, urlsplit, urlunsplit
 
 import requests
 from loguru import logger
+
+logger.info(
+    f"PEXELS_API_KEY environment present: {bool(os.getenv('PEXELS_API_KEY', '').strip())}"
+)
 from moviepy.video.io.VideoFileClip import VideoFileClip
 from PIL import Image, UnidentifiedImageError
 
