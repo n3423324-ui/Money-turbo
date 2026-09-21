@@ -175,6 +175,8 @@ def _get_tls_verify() -> bool:
 
 
 def get_api_key(cfg_key: str):
+    global _api_key_counter
+
     api_keys = config.app.get(cfg_key)
 
     # Railway environment variable support for Pexels
@@ -191,20 +193,10 @@ def get_api_key(cfg_key: str):
             f"Please set it in the config.toml file: {config.config_file}\n"
         )
 
-    # if only one key is provided, return it
+    # If only one key is provided, return it
     if isinstance(api_keys, str):
         return api_keys
 
-    global _api_key_counter
-    with _api_key_lock:
-        _api_key_counter += 1
-        return api_keys[_api_key_counter % len(api_keys)]
-
-    # if only one key is provided, return it
-    if isinstance(api_keys, str):
-        return api_keys
-
-    global _api_key_counter
     with _api_key_lock:
         _api_key_counter += 1
         return api_keys[_api_key_counter % len(api_keys)]
